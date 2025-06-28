@@ -5,6 +5,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { TextField, Button, Box, Typography, CircularProgress } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { login } from '../redux/authSlice'
 
 const schema = yup.object({
   email: yup.string().email('Invalid email').required('Email is required'),
@@ -16,6 +18,7 @@ type LoginFormInputs = yup.InferType<typeof schema>
 export default function Login() {
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>({
     resolver: yupResolver(schema),
   })
@@ -23,7 +26,7 @@ export default function Login() {
   const onSubmit: SubmitHandler<LoginFormInputs> = async () => {
     setLoading(true)
     setTimeout(() => {
-      localStorage.setItem('token', 'mock-token')
+      dispatch(login('mock-token'))
       setLoading(false)
       navigate('/dashboard')
     }, 1200)
