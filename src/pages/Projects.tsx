@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Box, Button, Dialog, DialogTitle, DialogContent, Typography, CircularProgress } from '@mui/material'
+import { useTranslation } from 'react-i18next'
+import { Box, Button, Dialog, DialogTitle, DialogContent, Typography } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux'
 import type { RootState, AppDispatch } from '../redux/store'
 import ProjectTable from '../features/projects/ProjectTable'
@@ -13,6 +14,7 @@ import {
 import type { Project, ProjectFilters } from '../features/projects/types'
 
 export default function ProjectsPage() {
+  const { t } = useTranslation()
   const dispatch = useDispatch<AppDispatch>()
   const { items, total, page, pageSize, filters, loading, selected } = useSelector((state: RootState) => state.projects)
   const [hiddenColumns, setHiddenColumns] = useState<string[]>([])
@@ -40,11 +42,11 @@ export default function ProjectsPage() {
     setDeleteTarget(project)
   }
 
-  const handleFormSubmit = async (values: any) => {
+  const handleFormSubmit = async (values: Omit<Project, 'id'> | Partial<Project>) => {
     if (editMode && selected) {
-      await dispatch(updateProject({ id: selected.id, project: values }))
+      await dispatch(updateProject({ id: selected.id, project: values as Partial<Project> }))
     } else {
-      await dispatch(createProject(values))
+      await dispatch(createProject(values as Omit<Project, 'id'>))
     }
     setFormOpen(false)
     dispatch(fetchProjects())
@@ -74,8 +76,8 @@ export default function ProjectsPage() {
   return (
     <Box>
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-        <Typography variant="h5">Projects</Typography>
-        <Button variant="contained" onClick={handleAdd}>Add Project</Button>
+        <Typography variant="h5">{t('projects.title')}</Typography>
+        <Button variant="contained" onClick={handleAdd}>{t('projects.addProject')}</Button>
       </Box>
       <ProjectFilterBar
         filters={filters}
@@ -99,7 +101,7 @@ export default function ProjectsPage() {
       />
       {/* Add/Edit Modal */}
       <Dialog open={formOpen} onClose={() => setFormOpen(false)} maxWidth="md" fullWidth>
-        <DialogTitle>{editMode ? 'Edit Project' : 'Add New Project'}</DialogTitle>
+        <DialogTitle>{editMode ? t('projects.editProject') : t('projects.addProject')}</DialogTitle>
         <DialogContent>
           <ProjectForm
             initialValues={editMode && selected ? selected : {}}
@@ -112,12 +114,12 @@ export default function ProjectsPage() {
       {/* Delete Confirm Dialog */}
       <ConfirmDialog
         open={!!deleteTarget}
-        title="Delete Project"
+        title={t('projects.editProject')}
         content={`Are you sure you want to delete project "${deleteTarget?.projectName}"?`}
         onClose={() => setDeleteTarget(null)}
         onConfirm={handleDeleteConfirm}
-        confirmText="Delete"
-        cancelText="Cancel"
+        confirmText={t('common.delete')}
+        cancelText={t('common.cancel')}
       />
     </Box>
   )

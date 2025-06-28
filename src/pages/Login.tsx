@@ -6,19 +6,22 @@ import * as yup from 'yup'
 import { TextField, Button, Box, Typography, CircularProgress } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import { login } from '../redux/authSlice'
 
-const schema = yup.object({
-  email: yup.string().email('Invalid email').required('Email is required'),
-  password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
-})
-
-type LoginFormInputs = yup.InferType<typeof schema>
-
 export default function Login() {
+  const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
+  const schema = yup.object({
+    email: yup.string().email(t('auth.invalidEmail')).required(t('auth.emailRequired')),
+    password: yup.string().min(6, t('auth.passwordMinLength')).required(t('auth.passwordRequired')),
+  })
+
+  type LoginFormInputs = yup.InferType<typeof schema>
+
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>({
     resolver: yupResolver(schema),
   })
@@ -34,10 +37,10 @@ export default function Login() {
 
   return (
     <Box maxWidth={400} mx="auto" mt={8} p={4} boxShadow={3} borderRadius={2}>
-      <Typography variant="h5" mb={2}>Login</Typography>
+      <Typography variant="h5" mb={2}>{t('auth.login')}</Typography>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <TextField
-          label="Email"
+          label={t('auth.email')}
           fullWidth
           margin="normal"
           {...register('email')}
@@ -45,7 +48,7 @@ export default function Login() {
           helperText={errors.email?.message}
         />
         <TextField
-          label="Password"
+          label={t('auth.password')}
           type="password"
           fullWidth
           margin="normal"
@@ -61,11 +64,11 @@ export default function Login() {
           disabled={loading}
           sx={{ mt: 2 }}
         >
-          {loading ? <CircularProgress size={24} /> : 'Login'}
+          {loading ? <CircularProgress size={24} /> : t('auth.login')}
         </Button>
         <Box mt={2} display="flex" justifyContent="space-between">
-          <Button size="small" onClick={() => navigate('/register')}>Register</Button>
-          <Button size="small" onClick={() => navigate('/forgot-password')}>Forgot Password?</Button>
+          <Button size="small" onClick={() => navigate('/register')}>{t('auth.register')}</Button>
+          <Button size="small" onClick={() => navigate('/forgot-password')}>{t('auth.forgotPassword')}</Button>
         </Box>
       </form>
     </Box>

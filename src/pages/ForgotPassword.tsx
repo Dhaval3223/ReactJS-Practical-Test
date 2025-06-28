@@ -5,17 +5,20 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { TextField, Button, Box, Typography, CircularProgress, Alert } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-
-const schema = yup.object({
-  email: yup.string().email('Invalid email').required('Email is required'),
-})
-
-type ForgotFormInputs = yup.InferType<typeof schema>
+import { useTranslation } from 'react-i18next'
 
 export default function ForgotPassword() {
+  const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const navigate = useNavigate()
+
+  const schema = yup.object({
+    email: yup.string().email(t('auth.invalidEmail')).required(t('auth.emailRequired')),
+  })
+
+  type ForgotFormInputs = yup.InferType<typeof schema>
+
   const { register, handleSubmit, formState: { errors } } = useForm<ForgotFormInputs>({
     resolver: yupResolver(schema),
   })
@@ -30,11 +33,11 @@ export default function ForgotPassword() {
 
   return (
     <Box maxWidth={400} mx="auto" mt={8} p={4} boxShadow={3} borderRadius={2}>
-      <Typography variant="h5" mb={2}>Forgot Password</Typography>
+      <Typography variant="h5" mb={2}>{t('auth.resetPassword')}</Typography>
       {success && <Alert severity="success" sx={{ mb: 2 }}>If this email exists, a reset link has been sent.</Alert>}
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <TextField
-          label="Email"
+          label={t('auth.email')}
           fullWidth
           margin="normal"
           {...register('email')}
@@ -49,10 +52,10 @@ export default function ForgotPassword() {
           disabled={loading}
           sx={{ mt: 2 }}
         >
-          {loading ? <CircularProgress size={24} /> : 'Send Reset Link'}
+          {loading ? <CircularProgress size={24} /> : t('auth.sendResetLink')}
         </Button>
         <Box mt={2} display="flex" justifyContent="space-between">
-          <Button size="small" onClick={() => navigate('/login')}>Back to Login</Button>
+          <Button size="small" onClick={() => navigate('/login')}>{t('auth.backToLogin')}</Button>
         </Box>
       </form>
     </Box>

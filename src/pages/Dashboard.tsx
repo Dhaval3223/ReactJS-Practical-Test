@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Card, CardContent, Typography, List, Box } from '@mui/material'
 import FolderIcon from '@mui/icons-material/Folder'
 import CalculateIcon from '@mui/icons-material/Calculate'
@@ -16,6 +17,7 @@ import {
 } from '../data/mockDashboardData'
 
 export default function Dashboard() {
+  const { t } = useTranslation()
   const [loading, setLoading] = useState(true)
 
   // Simulate API call
@@ -30,7 +32,7 @@ export default function Dashboard() {
   if (loading) {
     return (
       <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
-        <Typography>Loading dashboard...</Typography>
+        <Typography>{t('dashboard.loadingDashboard')}</Typography>
       </Box>
     )
   }
@@ -38,7 +40,7 @@ export default function Dashboard() {
   return (
     <Box>
       <Typography variant="h4" gutterBottom>
-        Dashboard
+        {t('dashboard.title')}
       </Typography>
       
       {/* Summary Cards */}
@@ -49,28 +51,28 @@ export default function Dashboard() {
         mb={4}
       >
         <StatCard
-          title="Total Projects"
+          title={t('dashboard.totalProjects')}
           value={dashboardStats.totalProjects}
           icon={<FolderIcon />}
           color="#2196f3"
           trend={{ value: 12, isPositive: true }}
         />
         <StatCard
-          title="Total Estimations"
+          title={t('dashboard.totalEstimations')}
           value={dashboardStats.totalEstimations}
           icon={<CalculateIcon />}
           color="#ff9800"
           trend={{ value: 8, isPositive: true }}
         />
         <StatCard
-          title="Active Projects"
+          title={t('dashboard.activeProjects')}
           value={dashboardStats.activeProjects}
           icon={<TrendingUpIcon />}
           color="#4caf50"
           trend={{ value: 5, isPositive: true }}
         />
         <StatCard
-          title="Completed Projects"
+          title={t('dashboard.completedProjects')}
           value={dashboardStats.completedProjects}
           icon={<CheckCircleIcon />}
           color="#9c27b0"
@@ -81,7 +83,7 @@ export default function Dashboard() {
       {/* Charts and Recent Activities */}
       <Box display="grid" gridTemplateColumns={{ xs: '1fr', lg: '2fr 1fr' }} gap={3} mb={3}>
         {/* Monthly Projects Chart */}
-        <ChartCard title="Monthly Projects">
+        <ChartCard title={t('dashboard.monthlyProjects')}>
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={monthlyData}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -100,7 +102,7 @@ export default function Dashboard() {
         </ChartCard>
 
         {/* Project Status Pie Chart */}
-        <ChartCard title="Project Status" height={300}>
+        <ChartCard title={t('dashboard.projectStatus')} height={300}>
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
@@ -127,7 +129,7 @@ export default function Dashboard() {
       <Card>
         <CardContent>
           <Typography variant="h6" gutterBottom>
-            Recent Activities
+            {t('dashboard.recentActivities')}
           </Typography>
           <List>
             {recentActivities.map((activity) => (

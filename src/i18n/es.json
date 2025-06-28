@@ -1,0 +1,108 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "add": "Agregar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "actions": "Acciones",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "submit": "Enviar",
+    "reset": "Restablecer",
+    "close": "Cerrar",
+    "open": "Abrir",
+    "yes": "Sí",
+    "no": "No",
+    "confirm": "Confirmar",
+    "language": "Idioma"
+  },
+  "auth": {
+    "login": "Iniciar Sesión",
+    "register": "Registrarse",
+    "logout": "Cerrar Sesión",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "invalidEmail": "Correo electrónico inválido",
+    "emailRequired": "El correo electrónico es requerido",
+    "passwordRequired": "La contraseña es requerida",
+    "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
+    "passwordsDoNotMatch": "Las contraseñas no coinciden",
+    "firstNameRequired": "El nombre es requerido",
+    "lastNameRequired": "El apellido es requerido",
+    "resetPassword": "Restablecer Contraseña",
+    "sendResetLink": "Enviar Enlace de Restablecimiento",
+    "backToLogin": "Volver al Inicio de Sesión"
+  },
+  "navigation": {
+    "dashboard": "Panel de Control",
+    "projects": "Proyectos",
+    "estimations": "Estimaciones",
+    "adminPanel": "Panel de Administración"
+  },
+  "dashboard": {
+    "title": "Panel de Control",
+    "loadingDashboard": "Cargando panel de control...",
+    "totalProjects": "Total de Proyectos",
+    "totalEstimations": "Total de Estimaciones",
+    "activeProjects": "Proyectos Activos",
+    "completedProjects": "Proyectos Completados",
+    "monthlyProjects": "Proyectos Mensuales",
+    "projectStatus": "Estado del Proyecto",
+    "recentActivities": "Actividades Recientes"
+  },
+  "projects": {
+    "title": "Proyectos",
+    "addProject": "Agregar Proyecto",
+    "editProject": "Editar Proyecto",
+    "projectName": "Nombre del Proyecto",
+    "projectDescription": "Descripción del Proyecto",
+    "projectStatus": "Estado del Proyecto",
+    "startDate": "Fecha de Inicio",
+    "endDate": "Fecha de Fin",
+    "budget": "Presupuesto",
+    "team": "Equipo",
+    "status": {
+      "active": "Activo",
+      "completed": "Completado",
+      "onHold": "En Espera",
+      "cancelled": "Cancelado"
+    }
+  },
+  "estimations": {
+    "title": "Estimaciones",
+    "addEstimation": "Agregar Estimación",
+    "editEstimation": "Editar Estimación",
+    "estimationName": "Nombre de la Estimación",
+    "project": "Proyecto",
+    "estimatedHours": "Horas Estimadas",
+    "actualHours": "Horas Reales",
+    "estimatedCost": "Costo Estimado",
+    "actualCost": "Costo Real",
+    "status": {
+      "draft": "Borrador",
+      "inProgress": "En Progreso",
+      "completed": "Completado",
+      "approved": "Aprobado"
+    }
+  },
+  "validation": {
+    "required": "Este campo es requerido",
+    "invalidFormat": "Formato inválido",
+    "minLength": "La longitud mínima es {{min}} caracteres",
+    "maxLength": "La longitud máxima es {{max}} caracteres",
+    "email": "Por favor ingrese una dirección de correo electrónico válida"
+  },
+  "languages": {
+    "en": "English",
+    "es": "Español"
+  }
+} 

@@ -6,20 +6,23 @@ import * as yup from 'yup'
 import { TextField, Button, Box, Typography, CircularProgress } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import { login } from '../redux/authSlice'
 
-const schema = yup.object({
-  email: yup.string().email('Invalid email').required('Email is required'),
-  password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
-  confirmPassword: yup.string().oneOf([yup.ref('password')], 'Passwords must match').required('Confirm your password'),
-})
-
-type RegisterFormInputs = yup.InferType<typeof schema>
-
 export default function Register() {
+  const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
+  const schema = yup.object({
+    email: yup.string().email(t('auth.invalidEmail')).required(t('auth.emailRequired')),
+    password: yup.string().min(6, t('auth.passwordMinLength')).required(t('auth.passwordRequired')),
+    confirmPassword: yup.string().oneOf([yup.ref('password')], t('auth.passwordsDoNotMatch')).required(t('auth.passwordRequired')),
+  })
+
+  type RegisterFormInputs = yup.InferType<typeof schema>
+
   const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormInputs>({
     resolver: yupResolver(schema),
   })
@@ -35,10 +38,10 @@ export default function Register() {
 
   return (
     <Box maxWidth={400} mx="auto" mt={8} p={4} boxShadow={3} borderRadius={2}>
-      <Typography variant="h5" mb={2}>Register</Typography>
+      <Typography variant="h5" mb={2}>{t('auth.register')}</Typography>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <TextField
-          label="Email"
+          label={t('auth.email')}
           fullWidth
           margin="normal"
           {...register('email')}
@@ -46,7 +49,7 @@ export default function Register() {
           helperText={errors.email?.message}
         />
         <TextField
-          label="Password"
+          label={t('auth.password')}
           type="password"
           fullWidth
           margin="normal"
@@ -55,7 +58,7 @@ export default function Register() {
           helperText={errors.password?.message}
         />
         <TextField
-          label="Confirm Password"
+          label={t('auth.confirmPassword')}
           type="password"
           fullWidth
           margin="normal"
@@ -71,10 +74,10 @@ export default function Register() {
           disabled={loading}
           sx={{ mt: 2 }}
         >
-          {loading ? <CircularProgress size={24} /> : 'Register'}
+          {loading ? <CircularProgress size={24} /> : t('auth.register')}
         </Button>
         <Box mt={2} display="flex" justifyContent="space-between">
-          <Button size="small" onClick={() => navigate('/login')}>Login</Button>
+          <Button size="small" onClick={() => navigate('/login')}>{t('auth.login')}</Button>
         </Box>
       </form>
     </Box>

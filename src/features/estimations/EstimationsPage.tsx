@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import {
   Box, Button, Typography, Dialog, DialogTitle, DialogContent,
   Container, Paper, Alert
@@ -17,6 +18,7 @@ import { transformFormToEstimation } from '../../helpers/estimationHelpers'
 import { PAGINATION } from '../../constants/enums'
 
 export default function EstimationsPage() {
+  const { t } = useTranslation()
   const dispatch = useDispatch<AppDispatch>()
   const { items: estimations, loading, error } = useSelector((state: RootState) => state.estimations)
   
@@ -102,14 +104,14 @@ export default function EstimationsPage() {
         {/* Header */}
         <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
           <Typography variant="h4" component="h1">
-            Build Estimations
+            {t('estimations.title')}
           </Typography>
           <Button
             variant="contained"
             startIcon={<AddIcon />}
             onClick={handleCreate}
           >
-            New Estimation
+            {t('estimations.addEstimation')}
           </Button>
         </Box>
 
@@ -153,7 +155,7 @@ export default function EstimationsPage() {
           }}
         >
           <DialogTitle>
-            {editingEstimation ? 'Edit Estimation' : 'New Estimation'}
+            {editingEstimation ? t('estimations.editEstimation') : t('estimations.addEstimation')}
           </DialogTitle>
           <DialogContent>
             <EstimationForm
@@ -168,12 +170,12 @@ export default function EstimationsPage() {
         {/* Delete Confirmation Dialog */}
         <ConfirmDialog
           open={!!estimationToDelete}
-          title="Delete Estimation"
+          title={t('estimations.editEstimation')}
           content={`Are you sure you want to delete "${estimationToDelete?.name}"? This action cannot be undone.`}
           onConfirm={handleConfirmDelete}
           onClose={handleCancelDelete}
-          confirmText="Delete"
-          cancelText="Cancel"
+          confirmText={t('common.delete')}
+          cancelText={t('common.cancel')}
         />
       </Box>
     </Container>

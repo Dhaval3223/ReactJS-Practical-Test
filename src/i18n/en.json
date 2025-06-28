@@ -1,0 +1,108 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
+    "filter": "Filter",
+    "actions": "Actions",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "reset": "Reset",
+    "close": "Close",
+    "open": "Open",
+    "yes": "Yes",
+    "no": "No",
+    "confirm": "Confirm",
+    "language": "Language"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "forgotPassword": "Forgot Password?",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "invalidEmail": "Invalid email",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "passwordMinLength": "Password must be at least 6 characters",
+    "passwordsDoNotMatch": "Passwords do not match",
+    "firstNameRequired": "First name is required",
+    "lastNameRequired": "Last name is required",
+    "resetPassword": "Reset Password",
+    "sendResetLink": "Send Reset Link",
+    "backToLogin": "Back to Login"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "projects": "Projects",
+    "estimations": "Estimations",
+    "adminPanel": "Admin Panel"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "loadingDashboard": "Loading dashboard...",
+    "totalProjects": "Total Projects",
+    "totalEstimations": "Total Estimations",
+    "activeProjects": "Active Projects",
+    "completedProjects": "Completed Projects",
+    "monthlyProjects": "Monthly Projects",
+    "projectStatus": "Project Status",
+    "recentActivities": "Recent Activities"
+  },
+  "projects": {
+    "title": "Projects",
+    "addProject": "Add Project",
+    "editProject": "Edit Project",
+    "projectName": "Project Name",
+    "projectDescription": "Project Description",
+    "projectStatus": "Project Status",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "budget": "Budget",
+    "team": "Team",
+    "status": {
+      "active": "Active",
+      "completed": "Completed",
+      "onHold": "On Hold",
+      "cancelled": "Cancelled"
+    }
+  },
+  "estimations": {
+    "title": "Estimations",
+    "addEstimation": "Add Estimation",
+    "editEstimation": "Edit Estimation",
+    "estimationName": "Estimation Name",
+    "project": "Project",
+    "estimatedHours": "Estimated Hours",
+    "actualHours": "Actual Hours",
+    "estimatedCost": "Estimated Cost",
+    "actualCost": "Actual Cost",
+    "status": {
+      "draft": "Draft",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "approved": "Approved"
+    }
+  },
+  "validation": {
+    "required": "This field is required",
+    "invalidFormat": "Invalid format",
+    "minLength": "Minimum length is {{min}} characters",
+    "maxLength": "Maximum length is {{max}} characters",
+    "email": "Please enter a valid email address"
+  },
+  "languages": {
+    "en": "English",
+    "es": "Español"
+  }
+} 
