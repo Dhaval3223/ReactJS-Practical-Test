@@ -1,0 +1,219 @@
+{
+  "projects": [
+    {
+      "id": "1",
+      "customer": "Olivia Martin",
+      "refNumber": "89PQRS6789T1U2V3",
+      "projectName": "Sarah Williams",
+      "projectNumber": "PQRST9012R",
+      "manager": "Sarah Williams",
+      "areaLocation": "Telangana",
+      "address": "Mumbai, Maharastra",
+      "dueDate": "2024-08-03",
+      "contact": "1234567890",
+      "staff": "John Doe",
+      "status": "Completed",
+      "email": "olivia@example.com"
+    },
+    {
+      "id": "2",
+      "customer": "John Smith",
+      "refNumber": "12ABCD3456E7F8G9",
+      "projectName": "Office Renovation",
+      "projectNumber": "ABC123456",
+      "manager": "Mike Johnson",
+      "areaLocation": "Karnataka",
+      "address": "Bangalore, Karnataka",
+      "dueDate": "2024-09-15",
+      "contact": "9876543210",
+      "staff": "Jane Wilson",
+      "status": "In Progress",
+      "email": "john@example.com"
+    },
+    {
+      "id": "3",
+      "customer": "Emily Davis",
+      "refNumber": "34EFGH7890I1J2K3",
+      "projectName": "Residential Complex",
+      "projectNumber": "DEF789012",
+      "manager": "David Brown",
+      "areaLocation": "Maharashtra",
+      "address": "Pune, Maharashtra",
+      "dueDate": "2024-10-20",
+      "contact": "8765432109",
+      "staff": "Lisa Anderson",
+      "status": "Pending",
+      "email": "emily@example.com"
+    }
+  ],
+  "estimations": [
+    {
+      "id": "1",
+      "name": "Website Redesign",
+      "customer": "Acme Corp",
+      "date": "2024-07-01",
+      "sections": [
+        {
+          "id": "s1",
+          "title": "Design",
+          "items": [
+            {
+              "id": "i1",
+              "title": "UI Mockups",
+              "description": "Create UI mockups",
+              "unit": "hour",
+              "quantity": 10,
+              "price": 50,
+              "margin": 10
+            },
+            {
+              "id": "i2",
+              "title": "Wireframes",
+              "description": "Create wireframes",
+              "unit": "hour",
+              "quantity": 8,
+              "price": 40,
+              "margin": 15
+            }
+          ]
+        },
+        {
+          "id": "s2",
+          "title": "Development",
+          "items": [
+            {
+              "id": "i3",
+              "title": "Frontend Development",
+              "description": "React development",
+              "unit": "hour",
+              "quantity": 40,
+              "price": 60,
+              "margin": 20
+            },
+            {
+              "id": "i4",
+              "title": "Backend Development",
+              "description": "API development",
+              "unit": "hour",
+              "quantity": 30,
+              "price": 70,
+              "margin": 25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Mobile App Development",
+      "customer": "TechStart Inc",
+      "date": "2024-08-15",
+      "sections": [
+        {
+          "id": "s3",
+          "title": "Planning",
+          "items": [
+            {
+              "id": "i5",
+              "title": "Requirements Analysis",
+              "description": "Gather and analyze requirements",
+              "unit": "hour",
+              "quantity": 16,
+              "price": 80,
+              "margin": 10
+            }
+          ]
+        },
+        {
+          "id": "s4",
+          "title": "Development",
+          "items": [
+            {
+              "id": "i6",
+              "title": "iOS Development",
+              "description": "Swift development",
+              "unit": "hour",
+              "quantity": 60,
+              "price": 90,
+              "margin": 30
+            },
+            {
+              "id": "i7",
+              "title": "Android Development",
+              "description": "Kotlin development",
+              "unit": "hour",
+              "quantity": 60,
+              "price": 85,
+              "margin": 30
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "E-commerce Platform",
+      "customer": "Retail Solutions",
+      "date": "2024-09-20",
+      "sections": [
+        {
+          "id": "s5",
+          "title": "Design & UX",
+          "items": [
+            {
+              "id": "i8",
+              "title": "User Research",
+              "description": "Conduct user research",
+              "unit": "hour",
+              "quantity": 20,
+              "price": 75,
+              "margin": 15
+            },
+            {
+              "id": "i9",
+              "title": "UI/UX Design",
+              "description": "Design user interface",
+              "unit": "hour",
+              "quantity": 35,
+              "price": 65,
+              "margin": 20
+            }
+          ]
+        },
+        {
+          "id": "s6",
+          "title": "Full Stack Development",
+          "items": [
+            {
+              "id": "i10",
+              "title": "Database Design",
+              "description": "Design database schema",
+              "unit": "hour",
+              "quantity": 12,
+              "price": 70,
+              "margin": 15
+            },
+            {
+              "id": "i11",
+              "title": "API Development",
+              "description": "RESTful API development",
+              "unit": "hour",
+              "quantity": 45,
+              "price": 75,
+              "margin": 25
+            },
+            {
+              "id": "i12",
+              "title": "Frontend Development",
+              "description": "React/Next.js development",
+              "unit": "hour",
+              "quantity": 50,
+              "price": 70,
+              "margin": 25
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
