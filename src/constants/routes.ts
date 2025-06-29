@@ -11,6 +11,8 @@ export const ROUTES = {
   // Protected routes
   DASHBOARD: '/dashboard',
   PROJECTS: '/projects',
+  PROJECT_CREATE: '/projects/create',
+  PROJECT_EDIT: '/projects/:id/edit',
   ESTIMATIONS: '/estimations',
 } as const
 
@@ -23,5 +25,7 @@ export const PUBLIC_ROUTES = [
 export const PROTECTED_ROUTES = [
   ROUTES.DASHBOARD,
   ROUTES.PROJECTS,
+  ROUTES.PROJECT_CREATE,
+  ROUTES.PROJECT_EDIT,
   ROUTES.ESTIMATIONS,
 ] as const 

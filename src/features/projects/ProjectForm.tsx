@@ -29,13 +29,18 @@ interface ProjectFormProps {
   onSubmit: (values: ProjectFormInputs) => void
   onCancel: () => void
   loading?: boolean
+  submitText?: string
 }
 
-export default function ProjectForm({ initialValues = {}, onSubmit, onCancel, loading }: ProjectFormProps) {
+export default function ProjectForm({ initialValues = {}, onSubmit, onCancel, loading, submitText }: ProjectFormProps) {
   const { control, handleSubmit, formState: { errors } } = useForm<ProjectFormInputs>({
     defaultValues: initialValues as ProjectFormInputs,
     resolver: yupResolver(schema),
   })
+
+  // Determine if this is edit mode based on whether initialValues has an id
+  const isEditMode = !!initialValues.id
+  const defaultSubmitText = isEditMode ? 'Update Project' : 'Add Project'
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -106,7 +111,7 @@ export default function ProjectForm({ initialValues = {}, onSubmit, onCancel, lo
         </Box>
       </Box>
       <Box display="flex" gap={2} mt={4}>
-        <Button type="submit" variant="contained" color="primary" disabled={loading}>Add Now</Button>
+        <Button type="submit" variant="contained" color="primary" disabled={loading}>{submitText || defaultSubmitText}</Button>
         <Button onClick={onCancel} variant="outlined" color="primary">Cancel</Button>
       </Box>
     </form>

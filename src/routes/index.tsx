@@ -5,6 +5,8 @@ import Register from '../pages/Register'
 import ForgotPassword from '../pages/ForgotPassword'
 import Dashboard from '../pages/Dashboard'
 import Projects from '../pages/Projects'
+import ProjectCreate from '../pages/ProjectCreate'
+import ProjectEdit from '../pages/ProjectEdit'
 import Estimations from '../pages/Estimations'
 import ProtectedRoute from './ProtectedRoute'
 import MainLayout from '../components/Layout/MainLayout'
@@ -22,6 +24,8 @@ export default function AppRoutes() {
           <Route element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
             <Route path={ROUTES.DASHBOARD} element={<Dashboard />} />
             <Route path={ROUTES.PROJECTS} element={<Projects />} />
+            <Route path={ROUTES.PROJECT_CREATE} element={<ProjectCreate />} />
+            <Route path={ROUTES.PROJECT_EDIT} element={<ProjectEdit />} />
             <Route path={ROUTES.ESTIMATIONS} element={<Estimations />} />
           </Route>
         </Routes>

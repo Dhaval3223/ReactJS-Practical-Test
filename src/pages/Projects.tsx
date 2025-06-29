@@ -1,25 +1,25 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Box, Button, Dialog, DialogTitle, DialogContent, Typography } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import { Box, Button, Typography } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux'
 import type { RootState, AppDispatch } from '../redux/store'
 import ProjectTable from '../features/projects/ProjectTable'
 import ProjectFilterBar from '../features/projects/ProjectFilterBar'
 import Pagination from '../components/Pagination'
-import ProjectForm from '../features/projects/ProjectForm'
 import ConfirmDialog from '../components/ConfirmDialog'
 import {
-  fetchProjects, createProject, updateProject, deleteProject, setPage, setFilters, setSelected
+  fetchProjects, deleteProject, setPage, setFilters
 } from '../features/projects/projectSlice'
 import type { Project, ProjectFilters } from '../features/projects/types'
+import { ROUTES } from '../constants/routes'
 
 export default function ProjectsPage() {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const dispatch = useDispatch<AppDispatch>()
-  const { items, total, page, pageSize, filters, loading, selected } = useSelector((state: RootState) => state.projects)
+  const { items, total, page, pageSize, filters, loading } = useSelector((state: RootState) => state.projects)
   const [hiddenColumns, setHiddenColumns] = useState<string[]>([])
-  const [formOpen, setFormOpen] = useState(false)
-  const [editMode, setEditMode] = useState(false)
   const [deleteTarget, setDeleteTarget] = useState<Project | null>(null)
 
   useEffect(() => {
@@ -27,29 +27,15 @@ export default function ProjectsPage() {
   }, [dispatch, page, pageSize, filters])
 
   const handleAdd = () => {
-    setEditMode(false)
-    dispatch(setSelected(null))
-    setFormOpen(true)
+    navigate(ROUTES.PROJECT_CREATE)
   }
 
   const handleEdit = (project: Project) => {
-    setEditMode(true)
-    dispatch(setSelected(project))
-    setFormOpen(true)
+    navigate(`${ROUTES.PROJECTS}/${project.id}/edit`)
   }
 
   const handleDelete = (project: Project) => {
     setDeleteTarget(project)
-  }
-
-  const handleFormSubmit = async (values: Omit<Project, 'id'> | Partial<Project>) => {
-    if (editMode && selected) {
-      await dispatch(updateProject({ id: selected.id, project: values as Partial<Project> }))
-    } else {
-      await dispatch(createProject(values as Omit<Project, 'id'>))
-    }
-    setFormOpen(false)
-    dispatch(fetchProjects())
   }
 
   const handleDeleteConfirm = async () => {
@@ -110,18 +96,6 @@ export default function ProjectsPage() {
           onPageChange={handlePageChange}
         />
       </Box>
-      {/* Add/Edit Modal */}
-      <Dialog open={formOpen} onClose={() => setFormOpen(false)} maxWidth="md" fullWidth>
-        <DialogTitle>{editMode ? t('projects.editProject') : t('projects.addProject')}</DialogTitle>
-        <DialogContent>
-          <ProjectForm
-            initialValues={editMode && selected ? selected : {}}
-            onSubmit={handleFormSubmit}
-            onCancel={() => setFormOpen(false)}
-            loading={loading}
-          />
-        </DialogContent>
-      </Dialog>
       {/* Delete Confirm Dialog */}
       <ConfirmDialog
         open={!!deleteTarget}
