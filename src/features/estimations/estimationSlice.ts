@@ -12,6 +12,9 @@ interface EstimationState {
   loading: boolean
   error: string | null
   selected?: Estimation | null
+  createLoading: boolean
+  updateLoading: boolean
+  deleteLoading: boolean
 }
 
 const initialState: EstimationState = {
@@ -23,6 +26,9 @@ const initialState: EstimationState = {
   loading: false,
   error: null,
   selected: null,
+  createLoading: false,
+  updateLoading: false,
+  deleteLoading: false,
 }
 
 export const fetchEstimations = createAsyncThunk(
@@ -66,9 +72,13 @@ const estimationSlice = createSlice({
     setSelected(state, action: PayloadAction<Estimation | null>) {
       state.selected = action.payload
     },
+    clearError(state) {
+      state.error = null
+    },
   },
   extraReducers: builder => {
     builder
+      // Fetch estimations
       .addCase(fetchEstimations.pending, state => {
         state.loading = true
         state.error = null
@@ -84,17 +94,44 @@ const estimationSlice = createSlice({
         state.loading = false
         state.error = action.error.message || 'Failed to fetch estimations'
       })
+      // Create estimation
+      .addCase(createEstimation.pending, state => {
+        state.createLoading = true
+        state.error = null
+      })
       .addCase(createEstimation.fulfilled, state => {
-        state.loading = false
+        state.createLoading = false
+      })
+      .addCase(createEstimation.rejected, (state, action) => {
+        state.createLoading = false
+        state.error = action.error.message || 'Failed to create estimation'
+      })
+      // Update estimation
+      .addCase(updateEstimation.pending, state => {
+        state.updateLoading = true
+        state.error = null
       })
       .addCase(updateEstimation.fulfilled, state => {
-        state.loading = false
+        state.updateLoading = false
+      })
+      .addCase(updateEstimation.rejected, (state, action) => {
+        state.updateLoading = false
+        state.error = action.error.message || 'Failed to update estimation'
+      })
+      // Delete estimation
+      .addCase(deleteEstimation.pending, state => {
+        state.deleteLoading = true
+        state.error = null
       })
       .addCase(deleteEstimation.fulfilled, state => {
-        state.loading = false
+        state.deleteLoading = false
+      })
+      .addCase(deleteEstimation.rejected, (state, action) => {
+        state.deleteLoading = false
+        state.error = action.error.message || 'Failed to delete estimation'
       })
   },
 })
 
-export const { setPage, setPageSize, setFilters, setSelected } = estimationSlice.actions
+export const { setPage, setPageSize, setFilters, setSelected, clearError } = estimationSlice.actions
 export default estimationSlice.reducer 

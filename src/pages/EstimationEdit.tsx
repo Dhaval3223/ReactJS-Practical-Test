@@ -8,7 +8,7 @@ import {
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { IconButton } from '@mui/material'
 import type { AppDispatch, RootState } from '../redux/store'
-import { updateEstimation, fetchEstimations } from '../features/estimations/estimationSlice'
+import { updateEstimation, fetchEstimations, clearError } from '../features/estimations/estimationSlice'
 import EstimationForm from '../features/estimations/EstimationForm'
 import type { EstimationFormInputs } from '../features/estimations/EstimationForm'
 import { transformFormToEstimation } from '../helpers/estimationHelpers'
@@ -19,7 +19,7 @@ export default function EstimationEdit() {
   const navigate = useNavigate()
   const { id } = useParams<{ id: string }>()
   const dispatch = useDispatch<AppDispatch>()
-  const { items: estimations, loading, error } = useSelector((state: RootState) => state.estimations)
+  const { items: estimations, loading, updateLoading, error } = useSelector((state: RootState) => state.estimations)
 
   // Find the estimation to edit
   const estimation = estimations.find(est => est.id === id)
@@ -48,6 +48,10 @@ export default function EstimationEdit() {
 
   const handleCancel = () => {
     navigate(ROUTES.ESTIMATIONS)
+  }
+
+  const handleCloseError = () => {
+    dispatch(clearError())
   }
 
   // Show loading if estimations are being fetched
@@ -97,7 +101,7 @@ export default function EstimationEdit() {
 
         {/* Error Alert */}
         {error && (
-          <Alert severity="error" sx={{ mb: 3 }}>
+          <Alert severity="error" onClose={handleCloseError} sx={{ mb: 3 }}>
             {error}
           </Alert>
         )}
@@ -108,7 +112,7 @@ export default function EstimationEdit() {
             initialValues={estimation}
             onSubmit={handleSubmit}
             onCancel={handleCancel}
-            loading={loading}
+            loading={updateLoading}
           />
         </Paper>
       </Box>

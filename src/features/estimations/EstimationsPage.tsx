@@ -7,7 +7,7 @@ import {
 } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import type { AppDispatch, RootState } from '../../redux/store'
-import { fetchEstimations, deleteEstimation as deleteEstimationAction } from './estimationSlice'
+import { fetchEstimations, deleteEstimation as deleteEstimationAction, clearError } from './estimationSlice'
 import EstimationTable from './EstimationTable'
 import type { Estimation } from './types'
 import ConfirmDialog from '../../components/ConfirmDialog'
@@ -19,7 +19,7 @@ export default function EstimationsPage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const dispatch = useDispatch<AppDispatch>()
-  const { items: estimations, loading, error } = useSelector((state: RootState) => state.estimations)
+  const { items: estimations, loading, deleteLoading, error } = useSelector((state: RootState) => state.estimations)
   
   // Local state
   const [estimationToDelete, setEstimationToDelete] = useState<Estimation | null>(null)
@@ -55,6 +55,7 @@ export default function EstimationsPage() {
       try {
         await dispatch(deleteEstimationAction(estimationToDelete.id)).unwrap()
         setEstimationToDelete(null)
+        dispatch(fetchEstimations())
       } catch (error) {
         console.error('Failed to delete estimation:', error)
       }
@@ -67,6 +68,10 @@ export default function EstimationsPage() {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
+  }
+
+  const handleCloseError = () => {
+    dispatch(clearError())
   }
 
   return (
@@ -87,7 +92,7 @@ export default function EstimationsPage() {
 
       {/* Error Alert */}
       {error && (
-        <Alert severity="error" sx={{ mb: 3 }}>
+        <Alert severity="error" onClose={handleCloseError} sx={{ mb: 3 }}>
           {error}
         </Alert>
       )}
@@ -117,12 +122,13 @@ export default function EstimationsPage() {
       {/* Delete Confirmation Dialog */}
       <ConfirmDialog
         open={!!estimationToDelete}
-        title={t('estimations.editEstimation')}
+        title={t('estimations.deleteEstimation')}
         content={`Are you sure you want to delete "${estimationToDelete?.name}"? This action cannot be undone.`}
         onConfirm={handleConfirmDelete}
         onClose={handleCancelDelete}
         confirmText={t('common.delete')}
         cancelText={t('common.cancel')}
+        loading={deleteLoading}
       />
     </Box>
   )

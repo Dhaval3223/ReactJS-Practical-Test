@@ -7,7 +7,7 @@ import {
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { IconButton } from '@mui/material'
 import type { AppDispatch, RootState } from '../redux/store'
-import { createEstimation } from '../features/estimations/estimationSlice'
+import { createEstimation, clearError } from '../features/estimations/estimationSlice'
 import EstimationForm from '../features/estimations/EstimationForm'
 import type { EstimationFormInputs } from '../features/estimations/EstimationForm'
 import { transformFormToEstimation } from '../helpers/estimationHelpers'
@@ -17,7 +17,7 @@ export default function EstimationCreate() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const dispatch = useDispatch<AppDispatch>()
-  const { loading, error } = useSelector((state: RootState) => state.estimations)
+  const { createLoading, error } = useSelector((state: RootState) => state.estimations)
 
   const handleSubmit = async (values: EstimationFormInputs) => {
     try {
@@ -31,6 +31,10 @@ export default function EstimationCreate() {
 
   const handleCancel = () => {
     navigate(ROUTES.ESTIMATIONS)
+  }
+
+  const handleCloseError = () => {
+    dispatch(clearError())
   }
 
   return (
@@ -48,7 +52,7 @@ export default function EstimationCreate() {
 
         {/* Error Alert */}
         {error && (
-          <Alert severity="error" sx={{ mb: 3 }}>
+          <Alert severity="error" onClose={handleCloseError} sx={{ mb: 3 }}>
             {error}
           </Alert>
         )}
@@ -58,7 +62,7 @@ export default function EstimationCreate() {
           <EstimationForm
             onSubmit={handleSubmit}
             onCancel={handleCancel}
-            loading={loading}
+            loading={createLoading}
           />
         </Paper>
       </Box>
