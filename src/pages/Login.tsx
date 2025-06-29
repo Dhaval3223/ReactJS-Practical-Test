@@ -66,7 +66,7 @@ export default function Login() {
       width="100vw"
     >
       <Box
-        maxWidth={400}
+        width={630}
         p={4}
         boxShadow={3}
         borderRadius={2}
@@ -76,40 +76,64 @@ export default function Login() {
           position: 'relative',
         }}
       >
-        <Typography variant="h5" mb={2}>{t('auth.login')}</Typography>
+        <Typography variant="h4" align="center" fontWeight={600} mb={1}>
+          {t('auth.login') + ' to Account'}
+        </Typography>
+        <Typography variant="subtitle1" align="center" color="text.secondary" mb={3}>
+          Please enter your email and password to continue
+        </Typography>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          <Box mb={2}>
+            <Typography variant="body1" fontWeight={500} mb={1}>
+              Email address:
+            </Typography>
+            <TextField
+              fullWidth
+              margin="normal"
+              {...register('email')}
+              error={!!errors.email}
+              helperText={errors.email?.message}
+              InputProps={{ style: { background: '#f7f8fa' } }}
+            />
+          </Box>
+          <Box mb={1} display="flex" alignItems="center" justifyContent="space-between">
+            <Typography variant="body1" fontWeight={500}>
+              Password
+            </Typography>
+            <Button size="small" sx={{ textTransform: 'none' }} onClick={() => navigate('/forgot-password')}>
+              Forget Password?
+            </Button>
+          </Box>
           <TextField
-            label={t('auth.email')}
-            fullWidth
-            margin="normal"
-            {...register('email')}
-            error={!!errors.email}
-            helperText={errors.email?.message}
-          />
-          <TextField
-            label={t('auth.password')}
             type="password"
             fullWidth
             margin="normal"
             {...register('password')}
             error={!!errors.password}
             helperText={errors.password?.message}
+            InputProps={{ style: { background: '#f7f8fa' } }}
           />
+          <Box display="flex" alignItems="center" mb={2}>
+            <input type="checkbox" id="remember" style={{ marginRight: 8 }} />
+            <label htmlFor="remember" style={{ fontSize: 15, color: '#666' }}>Remember Password</label>
+          </Box>
           <Button
             type="submit"
             variant="contained"
             color="primary"
             fullWidth
             disabled={loading}
-            sx={{ mt: 2 }}
+            sx={{ mt: 1, mb: 2, fontWeight: 600, fontSize: 18, height: 48 }}
           >
-            {loading ? <CircularProgress size={24} /> : t('auth.login')}
+            {loading ? <CircularProgress size={24} /> : 'Sign In'}
           </Button>
-          <Box mt={2} display="flex" justifyContent="space-between">
-            <Button size="small" onClick={() => navigate('/register')}>{t('auth.register')}</Button>
-            <Button size="small" onClick={() => navigate('/forgot-password')}>{t('auth.forgotPassword')}</Button>
-          </Box>
         </form>
+        <Typography align="center" mt={2}>
+          Don't have an account?{' '}
+          <Button variant="text" sx={{ p: 0, minWidth: 0 }} onClick={() => navigate('/register')}>
+            Create Account
+          </Button>
+        </Typography>
       </Box>
     </Box>
   )
