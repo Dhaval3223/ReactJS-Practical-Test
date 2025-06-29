@@ -38,7 +38,7 @@ export default function Dashboard() {
   }
 
   return (
-    <Box>
+    <Box p={4} width="100%">
       <Typography variant="h4" gutterBottom>
         {t('dashboard.title')}
       </Typography>

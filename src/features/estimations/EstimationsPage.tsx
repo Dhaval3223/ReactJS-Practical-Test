@@ -99,8 +99,8 @@ export default function EstimationsPage() {
   }
 
   return (
-    <Container maxWidth="xl">
-      <Box sx={{ py: 4 }}>
+    // <Container>
+      <Box sx={{ p: 2 }} width="100%" height="100%">
         {/* Header */}
         <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
           <Typography variant="h4" component="h1">
@@ -178,6 +178,6 @@ export default function EstimationsPage() {
           cancelText={t('common.cancel')}
         />
       </Box>
-    </Container>
+    // </Container>
   )
 } 

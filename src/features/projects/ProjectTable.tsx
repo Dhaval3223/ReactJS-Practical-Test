@@ -18,8 +18,8 @@ export default function ProjectTable({ projects, loading, hiddenColumns, onEdit,
   const visibleColumns = PROJECT_COLUMNS.filter(col => !hiddenColumns.includes(col.key))
 
   return (
-    <TableContainer component={Paper} sx={{ minWidth: 900 }}>
-      <Table size="small">
+    <TableContainer component={Paper} sx={{ width: '100%', overflow: 'auto' }}>
+      <Table size="small" sx={{ minWidth: 900 }}>
         <TableHead>
           <TableRow>
             {visibleColumns.map(col => (

@@ -74,7 +74,16 @@ export default function ProjectsPage() {
   }
 
   return (
-    <Box>
+    <Box
+      sx={{
+        height: { xs: 'calc(100vh - 56px)', sm: 'calc(100vh - 64px)' },
+        display: 'flex',
+        flexDirection: 'column',
+        p: { xs: 2, sm: 3 },
+        maxWidth: 'calc(100vw - 280px)',
+        width: '100%',
+      }}
+    >
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
         <Typography variant="h5">{t('projects.title')}</Typography>
         <Button variant="contained" onClick={handleAdd}>{t('projects.addProject')}</Button>
@@ -86,19 +95,21 @@ export default function ProjectsPage() {
         onChangeHiddenColumns={setHiddenColumns}
         onReset={handleResetFilters}
       />
-      <ProjectTable
-        projects={items}
-        loading={loading}
-        hiddenColumns={hiddenColumns}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
-      <Pagination
-        page={page}
-        pageSize={pageSize}
-        total={total}
-        onPageChange={handlePageChange}
-      />
+      <Box sx={{ flexGrow: 1, minHeight: 0, overflow: 'auto', display: 'flex', flexDirection: 'column' }}>
+        <ProjectTable
+          projects={items}
+          loading={loading}
+          hiddenColumns={hiddenColumns}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
+        <Pagination
+          page={page}
+          pageSize={pageSize}
+          total={total}
+          onPageChange={handlePageChange}
+        />
+      </Box>
       {/* Add/Edit Modal */}
       <Dialog open={formOpen} onClose={() => setFormOpen(false)} maxWidth="md" fullWidth>
         <DialogTitle>{editMode ? t('projects.editProject') : t('projects.addProject')}</DialogTitle>

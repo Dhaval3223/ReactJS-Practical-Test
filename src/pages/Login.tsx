@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { login } from '../redux/authSlice'
+import bgImage from '../assets/bg.png'
+import shadeImage from '../assets/shade.png'
 
 export default function Login() {
   const { t } = useTranslation()
@@ -36,41 +38,79 @@ export default function Login() {
   }
 
   return (
-    <Box maxWidth={400} mx="auto" mt={8} p={4} boxShadow={3} borderRadius={2}>
-      <Typography variant="h5" mb={2}>{t('auth.login')}</Typography>
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <TextField
-          label={t('auth.email')}
-          fullWidth
-          margin="normal"
-          {...register('email')}
-          error={!!errors.email}
-          helperText={errors.email?.message}
-        />
-        <TextField
-          label={t('auth.password')}
-          type="password"
-          fullWidth
-          margin="normal"
-          {...register('password')}
-          error={!!errors.password}
-          helperText={errors.password?.message}
-        />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          fullWidth
-          disabled={loading}
-          sx={{ mt: 2 }}
-        >
-          {loading ? <CircularProgress size={24} /> : t('auth.login')}
-        </Button>
-        <Box mt={2} display="flex" justifyContent="space-between">
-          <Button size="small" onClick={() => navigate('/register')}>{t('auth.register')}</Button>
-          <Button size="small" onClick={() => navigate('/forgot-password')}>{t('auth.forgotPassword')}</Button>
-        </Box>
-      </form>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundImage: `url(${bgImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        position: 'relative',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundImage: `url(${shadeImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          zIndex: 1,
+        }
+      }}
+      width="100vw"
+    >
+      <Box
+        maxWidth={400}
+        p={4}
+        boxShadow={3}
+        borderRadius={2}
+        sx={{
+          backgroundColor: 'white',
+          zIndex: 2,
+          position: 'relative',
+        }}
+      >
+        <Typography variant="h5" mb={2}>{t('auth.login')}</Typography>
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          <TextField
+            label={t('auth.email')}
+            fullWidth
+            margin="normal"
+            {...register('email')}
+            error={!!errors.email}
+            helperText={errors.email?.message}
+          />
+          <TextField
+            label={t('auth.password')}
+            type="password"
+            fullWidth
+            margin="normal"
+            {...register('password')}
+            error={!!errors.password}
+            helperText={errors.password?.message}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            disabled={loading}
+            sx={{ mt: 2 }}
+          >
+            {loading ? <CircularProgress size={24} /> : t('auth.login')}
+          </Button>
+          <Box mt={2} display="flex" justifyContent="space-between">
+            <Button size="small" onClick={() => navigate('/register')}>{t('auth.register')}</Button>
+            <Button size="small" onClick={() => navigate('/forgot-password')}>{t('auth.forgotPassword')}</Button>
+          </Box>
+        </form>
+      </Box>
     </Box>
   )
 } 
