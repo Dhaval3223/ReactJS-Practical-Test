@@ -154,7 +154,7 @@ export default function ProjectFilterBar({ filters, hiddenColumns, onChangeFilte
       <Popover open={!!colAnchorEl} anchorEl={colAnchorEl} onClose={handleColClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
         <Box p={2} minWidth={250}>
           <Typography variant="subtitle2" mb={1}>Select Columns</Typography>
-          <Box display="flex" flexWrap="wrap" gap={1} mb={2}>
+          <Box display="flex" flexDirection="column" gap={1} mb={2}>
             {PROJECT_COLUMNS.map(col => (
               <FormControlLabel
                 key={col.key}
@@ -169,6 +169,11 @@ export default function ProjectFilterBar({ filters, hiddenColumns, onChangeFilte
                 label={col.label}
               />
             ))}
+            <FormControlLabel
+              control={<Checkbox checked disabled />}
+              label="Actions"
+              sx={{ opacity: 0.7, fontStyle: 'italic' }}
+            />
           </Box>
           <Button onClick={handleApplyCols} variant="contained" fullWidth>Apply Now</Button>
         </Box>
