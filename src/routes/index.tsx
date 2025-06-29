@@ -8,6 +8,8 @@ import Projects from '../pages/Projects'
 import ProjectCreate from '../pages/ProjectCreate'
 import ProjectEdit from '../pages/ProjectEdit'
 import Estimations from '../pages/Estimations'
+import EstimationCreate from '../pages/EstimationCreate'
+import EstimationEdit from '../pages/EstimationEdit'
 import ProtectedRoute from './ProtectedRoute'
 import MainLayout from '../components/Layout/MainLayout'
 import { ROUTES } from '../constants/routes'
@@ -27,6 +29,8 @@ export default function AppRoutes() {
             <Route path={ROUTES.PROJECT_CREATE} element={<ProjectCreate />} />
             <Route path={ROUTES.PROJECT_EDIT} element={<ProjectEdit />} />
             <Route path={ROUTES.ESTIMATIONS} element={<Estimations />} />
+            <Route path={ROUTES.ESTIMATION_CREATE} element={<EstimationCreate />} />
+            <Route path={ROUTES.ESTIMATION_EDIT} element={<EstimationEdit />} />
           </Route>
         </Routes>
       </App>

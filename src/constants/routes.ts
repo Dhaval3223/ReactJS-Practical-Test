@@ -14,6 +14,8 @@ export const ROUTES = {
   PROJECT_CREATE: '/projects/create',
   PROJECT_EDIT: '/projects/:id/edit',
   ESTIMATIONS: '/estimations',
+  ESTIMATION_CREATE: '/estimations/create',
+  ESTIMATION_EDIT: '/estimations/:id/edit',
 } as const
 
 export const PUBLIC_ROUTES = [
@@ -28,4 +30,6 @@ export const PROTECTED_ROUTES = [
   ROUTES.PROJECT_CREATE,
   ROUTES.PROJECT_EDIT,
   ROUTES.ESTIMATIONS,
+  ROUTES.ESTIMATION_CREATE,
+  ROUTES.ESTIMATION_EDIT,
 ] as const 
