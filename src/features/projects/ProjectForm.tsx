@@ -44,58 +44,58 @@ export default function ProjectForm({ initialValues = {}, onSubmit, onCancel, lo
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Box display="flex" flexWrap="wrap" gap={2}>
-        <Box flex={1} minWidth={220}>
+      <Box display="grid" gridTemplateColumns="repeat(3, 1fr)" gap={2}>
+        <Box width="100%">
           <Controller name="customer" control={control} render={({ field }) => (
             <TextField {...field} label="Customer" fullWidth error={!!errors.customer} helperText={errors.customer?.message} />
           )} />
         </Box>
-        <Box flex={1} minWidth={220}>
+        <Box width="100%">
           <Controller name="refNumber" control={control} render={({ field }) => (
             <TextField {...field} label="Reference Number" fullWidth error={!!errors.refNumber} helperText={errors.refNumber?.message} />
           )} />
         </Box>
-        <Box flex={1} minWidth={220}>
+        <Box width="100%">
           <Controller name="projectName" control={control} render={({ field }) => (
             <TextField {...field} label="Project Name" fullWidth error={!!errors.projectName} helperText={errors.projectName?.message} />
           )} />
         </Box>
-        <Box flex={1} minWidth={220}>
+        <Box width="100%">
           <Controller name="projectNumber" control={control} render={({ field }) => (
             <TextField {...field} label="Project Number" fullWidth error={!!errors.projectNumber} helperText={errors.projectNumber?.message} />
           )} />
         </Box>
-        <Box flex={1} minWidth={220}>
+        <Box width="100%">
           <Controller name="manager" control={control} render={({ field }) => (
             <TextField {...field} label="Manager" fullWidth error={!!errors.manager} helperText={errors.manager?.message} />
           )} />
         </Box>
-        <Box flex={1} minWidth={220}>
+        <Box width="100%">
           <Controller name="areaLocation" control={control} render={({ field }) => (
             <TextField {...field} label="Area Location" fullWidth error={!!errors.areaLocation} helperText={errors.areaLocation?.message} />
           )} />
         </Box>
-        <Box flex={1} minWidth={220}>
+        <Box width="100%">
           <Controller name="address" control={control} render={({ field }) => (
             <TextField {...field} label="Address" fullWidth error={!!errors.address} helperText={errors.address?.message} />
           )} />
         </Box>
-        <Box flex={1} minWidth={220}>
+        <Box width="100%">
           <Controller name="dueDate" control={control} render={({ field }) => (
             <TextField {...field} label="Due Date" type="date" fullWidth InputLabelProps={{ shrink: true }} error={!!errors.dueDate} helperText={errors.dueDate?.message} />
           )} />
         </Box>
-        <Box flex={1} minWidth={220}>
+        <Box width="100%">
           <Controller name="contact" control={control} render={({ field }) => (
             <TextField {...field} label="Contact" fullWidth error={!!errors.contact} helperText={errors.contact?.message} />
           )} />
         </Box>
-        <Box flex={1} minWidth={220}>
+        <Box width="100%">
           <Controller name="staff" control={control} render={({ field }) => (
             <TextField {...field} label="Staff" fullWidth error={!!errors.staff} helperText={errors.staff?.message} />
           )} />
         </Box>
-        <Box flex={1} minWidth={220}>
+        <Box width="100%">
           <Controller name="status" control={control} render={({ field }) => (
             <TextField {...field} label="Status" select fullWidth error={!!errors.status} helperText={errors.status?.message} >
               {PROJECT_STATUS_OPTIONS.map(option => (
@@ -104,7 +104,7 @@ export default function ProjectForm({ initialValues = {}, onSubmit, onCancel, lo
             </TextField>
           )} />
         </Box>
-        <Box flex={1} minWidth={220}>
+        <Box width="100%">
           <Controller name="email" control={control} render={({ field }) => (
             <TextField {...field} label="Email" fullWidth error={!!errors.email} helperText={errors.email?.message} />
           )} />

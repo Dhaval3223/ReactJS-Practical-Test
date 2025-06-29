@@ -9,6 +9,7 @@ import Logo from '../../assets/Logo.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../redux/authSlice'
 import { useNavigate } from 'react-router-dom'
+import LogoutIcon from '@mui/icons-material/Logout'
 
 const drawerWidth = 220
 const miniWidth = 64
@@ -67,9 +68,10 @@ export default function Sidebar({ mini = false }: SidebarProps) {
             color="error"
             fullWidth
             onClick={handleLogout}
-            sx={{ mt: 2, fontWeight: 600, fontSize: 16 }}
+            sx={{ mt: 2, fontWeight: 600, fontSize: 16, minWidth: 0, p: mini ? 1.5 : undefined }}
           >
-            {t('auth.logout')}
+            <LogoutIcon />
+            {!mini && <span style={{ marginLeft: 8 }}>{t('auth.logout')}</span>}
           </Button>
         </Box>
       )}
