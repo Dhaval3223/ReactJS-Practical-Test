@@ -6,6 +6,7 @@ import type { RootState } from '../../redux/store'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '../../constants/routes'
 import LanguageSelector from '../LanguageSelector'
+import DarkModeToggle from '../DarkModeToggle'
 
 export default function Navbar() {
   const { t } = useTranslation()
@@ -27,6 +28,7 @@ export default function Navbar() {
         {token && (
           <Box display="flex" alignItems="center">
             <LanguageSelector />
+            <DarkModeToggle />
             <Button color="inherit" onClick={handleLogout}>
               {t('auth.logout')}
             </Button>
