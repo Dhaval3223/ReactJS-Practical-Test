@@ -5,6 +5,7 @@ import {
 import FilterListIcon from '@mui/icons-material/FilterList'
 import ViewColumnIcon from '@mui/icons-material/ViewColumn'
 import RefreshIcon from '@mui/icons-material/Refresh'
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
 import type { ProjectFilters } from './types'
 import { PROJECT_COLUMNS } from '../../constants/columns'
 import { PROJECT_STATUS_OPTIONS } from '../../constants/enums'
@@ -21,9 +22,11 @@ export default function ProjectFilterBar({ filters, hiddenColumns, onChangeFilte
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [colAnchorEl, setColAnchorEl] = useState<null | HTMLElement>(null)
   const [statusAnchorEl, setStatusAnchorEl] = useState<null | HTMLElement>(null)
+  const [dateAnchorEl, setDateAnchorEl] = useState<null | HTMLElement>(null)
   const [search, setSearch] = useState(filters.search || '')
   const [selectedStatus, setSelectedStatus] = useState<string[]>(filters.status || [])
   const [selectedCols, setSelectedCols] = useState<string[]>(hiddenColumns)
+  const [selectedDates, setSelectedDates] = useState<string[]>(filters.date || [])
 
   // Filter popover
   const handleFilterClick = (e: React.MouseEvent<HTMLElement>) => setAnchorEl(e.currentTarget)
@@ -37,10 +40,15 @@ export default function ProjectFilterBar({ filters, hiddenColumns, onChangeFilte
   const handleStatusClick = (e: React.MouseEvent<HTMLElement>) => setStatusAnchorEl(e.currentTarget)
   const handleStatusClose = () => setStatusAnchorEl(null)
 
+  // Date popover
+  const handleDateClick = (e: React.MouseEvent<HTMLElement>) => setDateAnchorEl(e.currentTarget)
+  const handleDateClose = () => setDateAnchorEl(null)
+
   const handleApplyFilters = () => {
-    onChangeFilters({ ...filters, search, status: selectedStatus })
+    onChangeFilters({ ...filters, search, status: selectedStatus, date: selectedDates })
     handleFilterClose()
     handleStatusClose()
+    handleDateClose()
   }
 
   const handleApplyCols = () => {
@@ -52,6 +60,7 @@ export default function ProjectFilterBar({ filters, hiddenColumns, onChangeFilte
     setSearch('')
     setSelectedStatus([])
     setSelectedCols([])
+    setSelectedDates([])
     onReset()
   }
 
@@ -94,6 +103,45 @@ export default function ProjectFilterBar({ filters, hiddenColumns, onChangeFilte
                   : [...selectedStatus, status])}
               />
             ))}
+          </Box>
+          <Button onClick={handleApplyFilters} variant="contained" fullWidth>Apply Now</Button>
+        </Box>
+      </Popover>
+
+      {/* Date Filter */}
+      <Button startIcon={<CalendarTodayIcon />} onClick={handleDateClick} variant="outlined">
+        Date
+      </Button>
+      <Popover open={!!dateAnchorEl} anchorEl={dateAnchorEl} onClose={handleDateClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
+        <Box p={2} minWidth={250}>
+          <Typography variant="subtitle2" mb={1}>Select Date Range</Typography>
+          <Box display="flex" flexDirection="column" gap={2} mb={2}>
+            <TextField
+              type="date"
+              label="From Date"
+              value={selectedDates[0] || ''}
+              onChange={e => {
+                const newDates = [...selectedDates]
+                newDates[0] = e.target.value
+                setSelectedDates(newDates)
+              }}
+              fullWidth
+              size="small"
+              InputLabelProps={{ shrink: true }}
+            />
+            <TextField
+              type="date"
+              label="To Date"
+              value={selectedDates[1] || ''}
+              onChange={e => {
+                const newDates = [...selectedDates]
+                newDates[1] = e.target.value
+                setSelectedDates(newDates)
+              }}
+              fullWidth
+              size="small"
+              InputLabelProps={{ shrink: true }}
+            />
           </Box>
           <Button onClick={handleApplyFilters} variant="contained" fullWidth>Apply Now</Button>
         </Box>

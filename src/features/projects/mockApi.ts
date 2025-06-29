@@ -1,6 +1,6 @@
 import type { Project, ProjectFilters, ProjectListResponse } from './types'
 
-let projects: Project[] = [
+const projects: Project[] = [
   {
     id: '1',
     customer: 'Olivia Martin',
@@ -30,7 +30,14 @@ export async function fetchProjects({ page = 1, pageSize = 10, filters = {} }: {
   if (filters.status && filters.status.length) {
     filtered = filtered.filter(p => filters.status!.includes(p.status))
   }
-  // Date filter can be added as needed
+  if (filters.date && filters.date.length >= 2 && filters.date[0] && filters.date[1]) {
+    const fromDate = new Date(filters.date[0])
+    const toDate = new Date(filters.date[1])
+    filtered = filtered.filter(p => {
+      const projectDate = new Date(p.dueDate)
+      return projectDate >= fromDate && projectDate <= toDate
+    })
+  }
   const total = filtered.length
   const start = (page - 1) * pageSize
   const data = filtered.slice(start, start + pageSize)
