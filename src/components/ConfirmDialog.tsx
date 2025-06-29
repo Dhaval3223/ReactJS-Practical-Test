@@ -1,4 +1,4 @@
-import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@mui/material'
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, CircularProgress } from '@mui/material'
 import type { ReactNode } from 'react'
 
 interface ConfirmDialogProps {
@@ -9,9 +9,19 @@ interface ConfirmDialogProps {
   onConfirm: () => void
   confirmText?: string
   cancelText?: string
+  loading?: boolean
 }
 
-export default function ConfirmDialog({ open, title = 'Confirm', content, onClose, onConfirm, confirmText = 'Delete', cancelText = 'Cancel' }: ConfirmDialogProps) {
+export default function ConfirmDialog({ 
+  open, 
+  title = 'Confirm', 
+  content, 
+  onClose, 
+  onConfirm, 
+  confirmText = 'Delete', 
+  cancelText = 'Cancel',
+  loading = false 
+}: ConfirmDialogProps) {
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>{title}</DialogTitle>
@@ -19,8 +29,16 @@ export default function ConfirmDialog({ open, title = 'Confirm', content, onClos
         <DialogContentText>{content}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>{cancelText}</Button>
-        <Button onClick={onConfirm} color="error" variant="contained">{confirmText}</Button>
+        <Button onClick={onClose} disabled={loading}>{cancelText}</Button>
+        <Button 
+          onClick={onConfirm} 
+          color="error" 
+          variant="contained"
+          disabled={loading}
+          startIcon={loading ? <CircularProgress size={16} /> : undefined}
+        >
+          {confirmText}
+        </Button>
       </DialogActions>
     </Dialog>
   )

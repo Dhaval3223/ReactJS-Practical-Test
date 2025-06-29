@@ -2,11 +2,11 @@ import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useSelector, useDispatch } from 'react-redux'
-import { Box, Button, Typography, Paper, CircularProgress } from '@mui/material'
+import { Box, Button, Typography, Paper, CircularProgress, Alert } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import type { RootState, AppDispatch } from '../redux/store'
 import ProjectForm from '../features/projects/ProjectForm'
-import { updateProject, fetchProjects, setSelected } from '../features/projects/projectSlice'
+import { updateProject, fetchProjects, setSelected, clearError } from '../features/projects/projectSlice'
 import type { Project } from '../features/projects/types'
 import { ROUTES } from '../constants/routes'
 
@@ -15,7 +15,7 @@ export default function ProjectEditPage() {
   const navigate = useNavigate()
   const { id } = useParams<{ id: string }>()
   const dispatch = useDispatch<AppDispatch>()
-  const { items, loading, selected } = useSelector((state: RootState) => state.projects)
+  const { items, loading, selected, updateLoading, error } = useSelector((state: RootState) => state.projects)
 
   useEffect(() => {
     if (id) {
@@ -39,6 +39,10 @@ export default function ProjectEditPage() {
 
   const handleCancel = () => {
     navigate(ROUTES.PROJECTS)
+  }
+
+  const handleCloseError = () => {
+    dispatch(clearError())
   }
 
   if (loading && !selected) {
@@ -100,12 +104,18 @@ export default function ProjectEditPage() {
         <Typography variant="h5">{t('projects.editProject')}</Typography>
       </Box>
       
+      {error && (
+        <Alert severity="error" onClose={handleCloseError} sx={{ mb: 2 }}>
+          {error}
+        </Alert>
+      )}
+      
       <Paper sx={{ p: 3, flexGrow: 1, overflow: 'auto' }}>
         <ProjectForm
           initialValues={selected}
           onSubmit={handleSubmit}
           onCancel={handleCancel}
-          loading={loading}
+          loading={updateLoading}
           submitText={t('projects.editProject')}
         />
       </Paper>

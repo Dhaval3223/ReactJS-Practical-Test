@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useSelector, useDispatch } from 'react-redux'
-import { Box, Button, Typography, Paper } from '@mui/material'
+import { Box, Button, Typography, Paper, Alert } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import type { RootState, AppDispatch } from '../redux/store'
 import ProjectForm from '../features/projects/ProjectForm'
-import { createProject } from '../features/projects/projectSlice'
+import { createProject, clearError } from '../features/projects/projectSlice'
 import type { Project } from '../features/projects/types'
 import { ROUTES } from '../constants/routes'
 
@@ -13,7 +13,7 @@ export default function ProjectCreatePage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const dispatch = useDispatch<AppDispatch>()
-  const { loading } = useSelector((state: RootState) => state.projects)
+  const { createLoading, error } = useSelector((state: RootState) => state.projects)
 
   const handleSubmit = async (values: Omit<Project, 'id'>) => {
     await dispatch(createProject(values))
@@ -22,6 +22,10 @@ export default function ProjectCreatePage() {
 
   const handleCancel = () => {
     navigate(ROUTES.PROJECTS)
+  }
+
+  const handleCloseError = () => {
+    dispatch(clearError())
   }
 
   return (
@@ -46,12 +50,18 @@ export default function ProjectCreatePage() {
         <Typography variant="h5">{t('projects.addProject')}</Typography>
       </Box>
       
+      {error && (
+        <Alert severity="error" onClose={handleCloseError} sx={{ mb: 2 }}>
+          {error}
+        </Alert>
+      )}
+      
       <Paper sx={{ p: 3, flexGrow: 1, overflow: 'auto' }}>
         <ProjectForm
           initialValues={{}}
           onSubmit={handleSubmit}
           onCancel={handleCancel}
-          loading={loading}
+          loading={createLoading}
           submitText={t('projects.addProject')}
         />
       </Paper>

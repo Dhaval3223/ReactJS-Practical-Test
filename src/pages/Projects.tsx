@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, Typography, Alert } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux'
 import type { RootState, AppDispatch } from '../redux/store'
 import ProjectTable from '../features/projects/ProjectTable'
@@ -9,7 +9,7 @@ import ProjectFilterBar from '../features/projects/ProjectFilterBar'
 import Pagination from '../components/Pagination'
 import ConfirmDialog from '../components/ConfirmDialog'
 import {
-  fetchProjects, deleteProject, setPage, setFilters
+  fetchProjects, deleteProject, setPage, setFilters, clearError
 } from '../features/projects/projectSlice'
 import type { Project, ProjectFilters } from '../features/projects/types'
 import { ROUTES } from '../constants/routes'
@@ -18,7 +18,7 @@ export default function ProjectsPage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const dispatch = useDispatch<AppDispatch>()
-  const { items, total, page, pageSize, filters, loading } = useSelector((state: RootState) => state.projects)
+  const { items, total, page, pageSize, filters, loading, deleteLoading, error } = useSelector((state: RootState) => state.projects)
   const [hiddenColumns, setHiddenColumns] = useState<string[]>([])
   const [deleteTarget, setDeleteTarget] = useState<Project | null>(null)
 
@@ -59,6 +59,10 @@ export default function ProjectsPage() {
     setHiddenColumns([])
   }
 
+  const handleCloseError = () => {
+    dispatch(clearError())
+  }
+
   return (
     <Box
       sx={{
@@ -74,6 +78,13 @@ export default function ProjectsPage() {
         <Typography variant="h5">{t('projects.title')}</Typography>
         <Button variant="contained" onClick={handleAdd}>{t('projects.addProject')}</Button>
       </Box>
+      
+      {error && (
+        <Alert severity="error" onClose={handleCloseError} sx={{ mb: 2 }}>
+          {error}
+        </Alert>
+      )}
+      
       <ProjectFilterBar
         filters={filters}
         hiddenColumns={hiddenColumns}
@@ -99,12 +110,13 @@ export default function ProjectsPage() {
       {/* Delete Confirm Dialog */}
       <ConfirmDialog
         open={!!deleteTarget}
-        title={t('projects.editProject')}
+        title={t('projects.deleteProject')}
         content={`Are you sure you want to delete project "${deleteTarget?.projectName}"?`}
         onClose={() => setDeleteTarget(null)}
         onConfirm={handleDeleteConfirm}
         confirmText={t('common.delete')}
         cancelText={t('common.cancel')}
+        loading={deleteLoading}
       />
     </Box>
   )

@@ -1,0 +1,49 @@
+{
+  "projects": [
+    {
+      "id": "1",
+      "customer": "Olivia Martin",
+      "refNumber": "89PQRS6789T1U2V3",
+      "projectName": "Sarah Williams",
+      "projectNumber": "PQRST9012R",
+      "manager": "Sarah Williams",
+      "areaLocation": "Telangana",
+      "address": "Mumbai, Maharastra",
+      "dueDate": "2024-08-03",
+      "contact": "1234567890",
+      "staff": "John Doe",
+      "status": "Completed",
+      "email": "olivia@example.com"
+    },
+    {
+      "id": "2",
+      "customer": "John Smith",
+      "refNumber": "12ABCD3456E7F8G9",
+      "projectName": "Office Renovation",
+      "projectNumber": "ABC123456",
+      "manager": "Mike Johnson",
+      "areaLocation": "Karnataka",
+      "address": "Bangalore, Karnataka",
+      "dueDate": "2024-09-15",
+      "contact": "9876543210",
+      "staff": "Jane Wilson",
+      "status": "In Progress",
+      "email": "john@example.com"
+    },
+    {
+      "id": "3",
+      "customer": "Emily Davis",
+      "refNumber": "34EFGH7890I1J2K3",
+      "projectName": "Residential Complex",
+      "projectNumber": "DEF789012",
+      "manager": "David Brown",
+      "areaLocation": "Maharashtra",
+      "address": "Pune, Maharashtra",
+      "dueDate": "2024-10-20",
+      "contact": "8765432109",
+      "staff": "Lisa Anderson",
+      "status": "Pending",
+      "email": "emily@example.com"
+    }
+  ]
+}

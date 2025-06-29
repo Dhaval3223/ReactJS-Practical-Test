@@ -12,6 +12,9 @@ interface ProjectState {
   loading: boolean
   error: string | null
   selected?: Project | null
+  createLoading: boolean
+  updateLoading: boolean
+  deleteLoading: boolean
 }
 
 const initialState: ProjectState = {
@@ -23,6 +26,9 @@ const initialState: ProjectState = {
   loading: false,
   error: null,
   selected: null,
+  createLoading: false,
+  updateLoading: false,
+  deleteLoading: false,
 }
 
 export const fetchProjects = createAsyncThunk(
@@ -66,6 +72,9 @@ const projectSlice = createSlice({
     setSelected(state, action: PayloadAction<Project | null>) {
       state.selected = action.payload
     },
+    clearError(state) {
+      state.error = null
+    },
   },
   extraReducers: builder => {
     builder
@@ -84,17 +93,41 @@ const projectSlice = createSlice({
         state.loading = false
         state.error = action.error.message || 'Failed to fetch projects'
       })
+      .addCase(createProject.pending, state => {
+        state.createLoading = true
+        state.error = null
+      })
       .addCase(createProject.fulfilled, state => {
-        state.loading = false
+        state.createLoading = false
+      })
+      .addCase(createProject.rejected, (state, action) => {
+        state.createLoading = false
+        state.error = action.error.message || 'Failed to create project'
+      })
+      .addCase(updateProject.pending, state => {
+        state.updateLoading = true
+        state.error = null
       })
       .addCase(updateProject.fulfilled, state => {
-        state.loading = false
+        state.updateLoading = false
+      })
+      .addCase(updateProject.rejected, (state, action) => {
+        state.updateLoading = false
+        state.error = action.error.message || 'Failed to update project'
+      })
+      .addCase(deleteProject.pending, state => {
+        state.deleteLoading = true
+        state.error = null
       })
       .addCase(deleteProject.fulfilled, state => {
-        state.loading = false
+        state.deleteLoading = false
+      })
+      .addCase(deleteProject.rejected, (state, action) => {
+        state.deleteLoading = false
+        state.error = action.error.message || 'Failed to delete project'
       })
   },
 })
 
-export const { setPage, setPageSize, setFilters, setSelected } = projectSlice.actions
+export const { setPage, setPageSize, setFilters, setSelected, clearError } = projectSlice.actions
 export default projectSlice.reducer 
